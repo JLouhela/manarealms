@@ -1,0 +1,20 @@
+{
+  "name": "manarealms",
+  "version": "1.0.0",
+  "description": "Fast deck builder roguelike",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack --watch & live-server --port=8085"
+  },
+  "author": "Joni Louhela",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.1",
+    "phaser": "^3.50.0",
+    "ts-loader": "^8.0.12",
+    "typescript": "^4.1.3",
+    "webpack": "^5.11.0",
+    "webpack-cli": "^4.2.0"
+  }
+}
