@@ -1,17 +1,20 @@
 import "phaser";
+import { BattleScene } from "./scenes/battle_scene";
+import { PreloadScene } from "./scenes/preload_scene";
 
 const config: Phaser.Types.Core.GameConfig = {
   title: "Manarealms",
-  width: 800,
+  width: 1024,
   height: 600,
   parent: "game",
-  backgroundColor: "#18216D",
+  scene: [PreloadScene, BattleScene],
+  backgroundColor: "#b0ceff",
 };
-export class StarfallGame extends Phaser.Game {
+export class ManaRealmsGame extends Phaser.Game {
   constructor(config: Phaser.Types.Core.GameConfig) {
     super(config);
   }
 }
 window.onload = () => {
-  var game = new StarfallGame(config);
+  var game = new ManaRealmsGame(config);
 };
