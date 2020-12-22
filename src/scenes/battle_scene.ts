@@ -12,6 +12,6 @@ export class BattleScene extends Phaser.Scene {
   create(): void {
     const player = DebugPlayerFactory.buildPlayer();
     this._gameState = new GameState(player);
-    this.add.image(1024 / 2, 600 / 2, "test");
+    this.add.image(1024 / 2, 600 / 2, "test_bg");
   }
 }

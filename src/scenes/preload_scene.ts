@@ -1,3 +1,5 @@
+import { Assets } from "../asset/assets";
+
 export class PreloadScene extends Phaser.Scene {
   constructor() {
     super({
@@ -5,7 +7,6 @@ export class PreloadScene extends Phaser.Scene {
     });
   }
 
-  //TODO define every asset to be preloaded in assets.ts
   preload(): void {
     this.load.on("progress", (percentage: number) => {
       console.log("Load percentage: " + percentage * 100) + "%";
@@ -14,6 +15,9 @@ export class PreloadScene extends Phaser.Scene {
       console.log("Preload complete");
       this.scene.start("BattleScene");
     });
-    this.load.image("test", "assets/test_asset.png");
+
+    Assets.testAssets.forEach((asset) => {
+      this.load.image(asset.name, "assets/" + asset.uri);
+    });
   }
 }
