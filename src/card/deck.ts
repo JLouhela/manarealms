@@ -1,8 +1,10 @@
 import { Card } from "./card";
 
+export type Cards = Card[];
+
 export class Deck {
-  private _discardPile: Card[];
-  private _pile: Card[];
+  private _discardPile: Cards;
+  private _pile: Cards;
 
   constructor() {
     this._discardPile = [];
@@ -11,5 +13,13 @@ export class Deck {
 
   public addCard(c: Card): void {
     this._pile.push(c);
+  }
+
+  get pile(): Cards {
+    return this._pile;
+  }
+
+  get discardPile(): Cards {
+    return this._discardPile;
   }
 }

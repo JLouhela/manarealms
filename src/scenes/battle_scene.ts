@@ -1,8 +1,12 @@
 import { GameState } from "../game/game_state";
 import { DebugPlayerFactory } from "../debug/debug_player_factory";
+import { CardFactory } from "../card/card_factory";
+import { Renderer } from "../render/renderer";
 
 export class BattleScene extends Phaser.Scene {
   private _gameState: GameState;
+  private _cardFactory: CardFactory;
+  private _renderer: Renderer;
   constructor() {
     super({
       key: "BattleScene",
@@ -10,8 +14,19 @@ export class BattleScene extends Phaser.Scene {
   }
 
   create(): void {
-    const player = DebugPlayerFactory.buildPlayer();
+    this._cardFactory = new CardFactory(this);
+    const player = DebugPlayerFactory.buildPlayer(this._cardFactory);
     this._gameState = new GameState(player);
-    this.add.image(1024 / 2, 600 / 2, "test_bg");
+
+    let { width, height } = this.sys.game.canvas;
+    this._renderer = new Renderer(
+      this,
+      new Phaser.Geom.Rectangle(0, 0, width, height),
+      this._gameState
+    );
+  }
+
+  update(time: number, delta: number) {
+    this._renderer.render(time, delta);
   }
 }

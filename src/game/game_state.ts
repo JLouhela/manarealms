@@ -6,4 +6,8 @@ export class GameState {
   constructor(player: Player) {
     this._player = player;
   }
+
+  get player(): Player {
+    return this._player;
+  }
 }
