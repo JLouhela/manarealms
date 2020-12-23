@@ -2,6 +2,7 @@ import { GameState } from "../game/game_state";
 import { DebugPlayerFactory } from "../debug/debug_player_factory";
 import { CardFactory } from "../card/card_factory";
 import { Renderer } from "../render/renderer";
+import * as log from "loglevel";
 
 export class BattleScene extends Phaser.Scene {
   private _gameState: GameState;
@@ -24,6 +25,7 @@ export class BattleScene extends Phaser.Scene {
       new Phaser.Geom.Rectangle(0, 0, width, height),
       this._gameState
     );
+    log.debug("BattleScene created");
   }
 
   update(time: number, delta: number) {

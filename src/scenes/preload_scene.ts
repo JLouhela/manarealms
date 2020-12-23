@@ -1,4 +1,5 @@
 import { Assets } from "../asset/assets";
+import * as log from "loglevel";
 
 export class PreloadScene extends Phaser.Scene {
   constructor() {
@@ -9,10 +10,10 @@ export class PreloadScene extends Phaser.Scene {
 
   preload(): void {
     this.load.on("progress", (percentage: number) => {
-      console.log("Load percentage: " + percentage * 100) + "%";
+      log.debug("Load percentage: " + percentage * 100) + "%";
     });
     this.load.on("complete", () => {
-      console.log("Preload complete");
+      console.info("Asset loading complete");
       this.scene.start("BattleScene");
     });
 
