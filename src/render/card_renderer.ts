@@ -4,9 +4,10 @@ import { Constants } from "../utils/constants";
 export namespace CardRenderer {
   export function renderPlayerCards(
     deck: Deck,
+    hand: Cards,
     rect: Phaser.Geom.Rectangle
   ): void {
-    renderPlayerHand(deck.pile, rect);
+    renderPlayerHand(hand, rect);
   }
 
   function renderPlayerHand(cards: Cards, rect: Phaser.Geom.Rectangle) {

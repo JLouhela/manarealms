@@ -15,6 +15,9 @@ export class Deck {
     this._pile.push(c);
   }
 
+  // TODO remove card
+  // TODO addToDiscard
+
   get pile(): Cards {
     return this._pile;
   }

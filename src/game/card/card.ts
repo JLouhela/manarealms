@@ -3,8 +3,17 @@ import { Effect } from "./effect";
 export class Card {
   private _manaCost: number;
   private _effects: Effect[];
+  private _textureKey: string;
   private _image: Phaser.GameObjects.Image;
   private _description: string;
+
+  get textureKey(): string {
+    return this._textureKey;
+  }
+
+  set textureKey(key: string) {
+    this._textureKey = key;
+  }
 
   get sprite(): Phaser.GameObjects.Image {
     return this._image;

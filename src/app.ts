@@ -1,7 +1,7 @@
 import "phaser";
 import { BattleScene } from "./scenes/battle_scene";
 import { PreloadScene } from "./scenes/preload_scene";
-import * as log from "loglevel";
+import log from "loglevel";
 
 const config: Phaser.Types.Core.GameConfig = {
   title: "Manarealms",

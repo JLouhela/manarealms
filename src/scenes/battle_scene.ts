@@ -1,13 +1,15 @@
 import { GameState } from "../game/game_state";
-import { DebugPlayerFactory } from "../debug/debug_player_factory";
 import { CardFactory } from "../game/card/card_factory";
-import { Renderer } from "../render/renderer";
-import * as log from "loglevel";
+import { BattleRenderer } from "../render/battle_renderer";
+import { UIManager } from "../ui/ui_manager";
+import log from "loglevel";
 
 export class BattleScene extends Phaser.Scene {
   private _gameState: GameState;
   private _cardFactory: CardFactory;
-  private _renderer: Renderer;
+  private _renderer: BattleRenderer;
+  private _uiManager: UIManager;
+
   constructor() {
     super({
       key: "BattleScene",
@@ -15,16 +17,18 @@ export class BattleScene extends Phaser.Scene {
   }
 
   create(): void {
-    this._cardFactory = new CardFactory(this);
-    const player = DebugPlayerFactory.buildPlayer(this._cardFactory);
-    this._gameState = new GameState(player);
-
+    log.debug("create BattleScene");
+    this._gameState = this.registry.get("gamestate");
+    this._gameState.getBattleState().init(this._gameState.player.deck);
+    this._uiManager = this.registry.get("uimanager");
     let { width, height } = this.sys.game.canvas;
-    this._renderer = new Renderer(
+    this._renderer = new BattleRenderer(
       this,
-      new Phaser.Geom.Rectangle(0, 0, width, height),
-      this._gameState
+      new Phaser.Geom.Rectangle(0, 0, width, height)
     );
+    this._renderer.init(this._gameState.getBattleState());
+    // TODO trigger state changes on gamestate => tie this to event
+    this._uiManager.updateState(this._gameState);
     log.debug("BattleScene created");
   }
 

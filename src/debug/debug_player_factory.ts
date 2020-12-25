@@ -4,9 +4,9 @@ import { CardFactory } from "../game/card/card_factory";
 import { Player } from "../game/player/player";
 
 export namespace DebugPlayerFactory {
-  export function buildPlayer(cardFactory: CardFactory): Player {
+  export function buildPlayer(): Player {
     const d = new Deck();
-
+    let cardFactory = new CardFactory();
     d.addCard(cardFactory.GetTestCard(1));
     d.addCard(cardFactory.GetTestCard(2));
     d.addCard(cardFactory.GetTestCard(3));
