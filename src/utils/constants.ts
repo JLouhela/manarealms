@@ -5,4 +5,7 @@ export namespace Constants {
     export const BaseDepth = 900;
     export const HandDepth = 950;
   }
+  export namespace Sprite {
+    export const CardWidth = 128;
+  }
 }

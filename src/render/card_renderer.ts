@@ -11,11 +11,15 @@ export namespace CardRenderer {
   }
 
   function renderPlayerHand(cards: Cards, rect: Phaser.Geom.Rectangle) {
-    const startX = 500;
+    let spacerX = rect.width * 0.01;
+    let startX =
+      rect.width / 2 -
+      (cards.length / 2) * Constants.Sprite.CardWidth +
+      spacerX;
     const cardY = rect.bottom * 0.8;
-    const spacerX = 180;
+    const cardXAdd = Constants.Sprite.CardWidth + spacerX;
     for (let i = 0; i < cards.length; ++i) {
-      cards[i].sprite.x = startX + spacerX * i;
+      cards[i].sprite.x = startX + cardXAdd * i;
       cards[i].sprite.y = cardY;
       cards[i].sprite.setDepth(Constants.UI.HandDepth);
     }
