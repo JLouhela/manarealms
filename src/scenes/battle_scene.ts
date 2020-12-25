@@ -1,6 +1,6 @@
 import { GameState } from "../game/game_state";
 import { DebugPlayerFactory } from "../debug/debug_player_factory";
-import { CardFactory } from "../card/card_factory";
+import { CardFactory } from "../game/card/card_factory";
 import { Renderer } from "../render/renderer";
 import * as log from "loglevel";
 

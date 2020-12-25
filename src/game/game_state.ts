@@ -1,4 +1,4 @@
-import { Player } from "../player/player";
+import { Player } from "./player/player";
 
 export class GameState {
   private _player: Player;

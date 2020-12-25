@@ -1,4 +1,4 @@
-import { Cards, Deck } from "../card/deck";
+import { Cards, Deck } from "../game/card/deck";
 import { Constants } from "../utils/constants";
 
 export namespace CardRenderer {

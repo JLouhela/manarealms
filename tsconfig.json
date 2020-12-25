@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es5"
   },
-  "include": ["src/*"],
+  "include": ["src/*", "src/game/battle", "src/game/player", "src/game/card"],
   "typeRoots": ["./node_modules/phaser/types"],
   "types": ["Phaser"]
 }
