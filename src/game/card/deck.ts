@@ -15,6 +15,19 @@ export class Deck {
     this._pile.push(c);
   }
 
+  private shuffle(cards: Cards) {
+    for (let i = cards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [cards[i], cards[j]] = [cards[j], cards[i]];
+    }
+  }
+
+  public shuffleDiscardsBack(): void {
+    this.shuffle(this._discardPile);
+    this._pile = this._pile.concat(this._discardPile);
+    this._discardPile = [];
+  }
+
   // TODO remove card
   // TODO addToDiscard
 

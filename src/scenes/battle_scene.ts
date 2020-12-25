@@ -1,14 +1,14 @@
 import { GameState } from "../game/game_state";
-import { CardFactory } from "../game/card/card_factory";
 import { BattleRenderer } from "../render/battle_renderer";
 import { UIManager } from "../ui/ui_manager";
+import { TurnManager } from "../game/battle/turn_manager";
 import log from "loglevel";
 
 export class BattleScene extends Phaser.Scene {
   private _gameState: GameState;
-  private _cardFactory: CardFactory;
   private _renderer: BattleRenderer;
   private _uiManager: UIManager;
+  private _turnManager: TurnManager;
 
   constructor() {
     super({
@@ -27,7 +27,9 @@ export class BattleScene extends Phaser.Scene {
       new Phaser.Geom.Rectangle(0, 0, width, height)
     );
     this._renderer.init(this._gameState.getBattleState());
-    // TODO trigger state changes on gamestate => tie this to event
+    this._turnManager = new TurnManager(this._gameState.getBattleState());
+    // TODO trigger state changes on gamestate / battlestate => tie these to events
+    this._turnManager.initPlayerTurn();
     this._uiManager.updateState(this._gameState);
     log.debug("BattleScene created");
   }

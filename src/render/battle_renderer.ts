@@ -18,10 +18,6 @@ export class BattleRenderer {
     this._battleState = battleState;
     battleState.getPlayerDeck().pile.forEach((card) => {
       card.sprite = this._scene.add.image(0, 0, card.textureKey);
-      // TODO do this elsewhere to access actionmanager or something
-      card.sprite.on("pointerdown", function (pointer: Phaser.Input.Pointer) {
-        this.setTint(0xff0000);
-      });
     });
     log.debug("BattleRenderer initialized, card sprites created");
   }
