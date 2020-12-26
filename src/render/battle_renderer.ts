@@ -16,7 +16,7 @@ export class BattleRenderer {
 
   init(battleState: ReadBattleState) {
     this._battleState = battleState;
-    battleState.getPlayerDeck().pile.forEach((card) => {
+    battleState.getPlayerState().deck.pile.forEach((card) => {
       card.sprite = this._scene.add.image(0, 0, card.textureKey);
     });
     log.debug("BattleRenderer initialized, card sprites created");
@@ -24,8 +24,8 @@ export class BattleRenderer {
 
   render(time: number, delta: number): void {
     CardRenderer.renderPlayerCards(
-      this._battleState.getPlayerDeck(),
-      this._battleState.getPlayerHand(),
+      this._battleState.getPlayerState().deck,
+      this._battleState.getPlayerState().hand,
       this._rect
     );
   }

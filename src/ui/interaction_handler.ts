@@ -17,7 +17,7 @@ export class InteractionHandler {
   constructor() {}
   setupBattleInteractions(battleState: ReadBattleState) {
     enablePlayerHand(
-      battleState.getPlayerHand(),
+      battleState.getPlayerState().hand,
       battleState.getPhase() == Phase.PLAYER
     );
   }

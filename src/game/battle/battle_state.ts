@@ -1,6 +1,7 @@
 import log = require("loglevel");
-import { Deck, Cards } from "../card/deck";
+import { Deck } from "../card/deck";
 import { BattleConfig } from "./battle_config";
+import { PlayerState } from "./player_state";
 
 export enum Phase {
   PLAYER,
@@ -8,36 +9,28 @@ export enum Phase {
 }
 
 export interface ReadBattleState {
-  getPlayerDeck(): Deck;
-  getPlayerHand(): Cards;
+  getPlayerState(): PlayerState;
   getPhase(): Phase;
 }
 
 export class BattleState implements ReadBattleState {
-  _playerDeck: Deck;
-  _playerHand: Cards;
+  _playerState: PlayerState;
   _phase: Phase;
   _config: BattleConfig;
 
   constructor() {
-    this._playerDeck = null;
-    this._playerHand = null;
+    this._playerState = new PlayerState();
     this._phase = Phase.PLAYER;
     this._config = new BattleConfig();
   }
 
   init(playerDeck: Deck): void {
     log.debug("Init new battle state");
-    this._playerDeck = playerDeck;
-    this._playerHand = [];
+    this._playerState.init(playerDeck);
   }
 
-  getPlayerDeck(): Deck {
-    return this._playerDeck;
-  }
-
-  getPlayerHand(): Cards {
-    return this._playerHand;
+  getPlayerState(): PlayerState {
+    return this._playerState;
   }
 
   getPhase(): Phase {
