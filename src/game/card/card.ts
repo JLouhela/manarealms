@@ -1,11 +1,14 @@
 import { Effect } from "./effect";
 
+// TODO separate render stuff from content, e.g. RenderCard
 export class Card {
   private _manaCost: number;
   private _effects: Effect[];
   private _textureKey: string;
   private _image: Phaser.GameObjects.Image;
   private _description: string;
+  private _manaCostText: Phaser.GameObjects.Text;
+  private _renderContainer: Phaser.GameObjects.Container;
 
   get textureKey(): string {
     return this._textureKey;
@@ -13,6 +16,22 @@ export class Card {
 
   set textureKey(key: string) {
     this._textureKey = key;
+  }
+
+  get manaCostText(): Phaser.GameObjects.Text {
+    return this._manaCostText;
+  }
+
+  set manaCostText(txt: Phaser.GameObjects.Text) {
+    this._manaCostText = txt;
+  }
+
+  get renderContainer(): Phaser.GameObjects.Container {
+    return this._renderContainer;
+  }
+
+  set renderContainer(container: Phaser.GameObjects.Container) {
+    this._renderContainer = container;
   }
 
   get sprite(): Phaser.GameObjects.Image {

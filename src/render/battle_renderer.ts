@@ -17,7 +17,15 @@ export class BattleRenderer {
   init(battleState: ReadBattleState) {
     this._battleState = battleState;
     battleState.getPlayerState().deck.pile.forEach((card) => {
+      card.renderContainer = this._scene.add.container(0, 0);
       card.sprite = this._scene.add.image(0, 0, card.textureKey);
+      card.manaCostText = this._scene.add.text(
+        -55,
+        0,
+        "Cost: " + card.manacost + " mana"
+      );
+      card.renderContainer.add(card.sprite);
+      card.renderContainer.add(card.manaCostText);
     });
     log.debug("BattleRenderer initialized, card sprites created");
   }

@@ -1,3 +1,4 @@
+import log = require("loglevel");
 import { Card } from "./card";
 
 export type Cards = Card[];
@@ -15,15 +16,19 @@ export class Deck {
     this._pile.push(c);
   }
 
-  private shuffle(cards: Cards) {
+  private _shuffle(cards: Cards) {
     for (let i = cards.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [cards[i], cards[j]] = [cards[j], cards[i]];
     }
   }
 
+  public shuffleDeck() {
+    this._shuffle(this.pile);
+  }
+
   public shuffleDiscardsBack(): void {
-    this.shuffle(this._discardPile);
+    this._shuffle(this._discardPile);
     this._pile = this._pile.concat(this._discardPile);
     this._discardPile = [];
   }

@@ -19,9 +19,9 @@ export namespace CardRenderer {
     const cardY = rect.bottom * 0.8;
     const cardXAdd = Constants.Sprite.CardWidth + spacerX;
     for (let i = 0; i < cards.length; ++i) {
-      cards[i].sprite.x = startX + cardXAdd * i;
-      cards[i].sprite.y = cardY;
-      cards[i].sprite.setDepth(Constants.UI.HandDepth);
+      cards[i].renderContainer.x = startX + cardXAdd * i;
+      cards[i].renderContainer.y = cardY;
+      cards[i].renderContainer.setDepth(Constants.UI.HandDepth);
     }
   }
 }
