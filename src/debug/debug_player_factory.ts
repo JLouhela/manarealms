@@ -10,12 +10,14 @@ export namespace DebugPlayerFactory {
     d.addCard(cardFactory.GetTestCard(1));
     d.addCard(cardFactory.GetTestCard(2));
     d.addCard(cardFactory.GetTestCard(3));
-    d.addCard(cardFactory.GetTestCard(2));
-    d.addCard(cardFactory.GetTestCard(5));
-    d.addCard(cardFactory.GetTestCard(4));
     d.addCard(cardFactory.GetTestCard(1));
     d.addCard(cardFactory.GetTestCard(2));
-    d.addCard(cardFactory.GetTestCard(3));
+    d.addCard(cardFactory.GetTestManaCard(1));
+    d.addCard(cardFactory.GetTestManaCard(1));
+    d.addCard(cardFactory.GetTestManaCard(1));
+    d.addCard(cardFactory.GetTestManaCard(1));
+    d.addCard(cardFactory.GetTestManaCard(2));
+
     d.shuffleDeck();
 
     let p = new Player();

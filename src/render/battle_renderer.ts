@@ -26,6 +26,7 @@ export class BattleRenderer {
       );
       card.renderContainer.add(card.sprite);
       card.renderContainer.add(card.manaCostText);
+      card.renderContainer.setVisible(false);
     });
     log.debug("BattleRenderer initialized, card sprites created");
   }

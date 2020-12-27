@@ -22,6 +22,7 @@ export namespace CardRenderer {
       cards[i].renderContainer.x = startX + cardXAdd * i;
       cards[i].renderContainer.y = cardY;
       cards[i].renderContainer.setDepth(Constants.UI.HandDepth);
+      cards[i].renderContainer.setVisible(true);
     }
   }
 }
