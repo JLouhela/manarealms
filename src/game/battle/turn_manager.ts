@@ -2,11 +2,14 @@ import log = require("loglevel");
 import { Deck } from "../card/deck";
 import { Card } from "../card/card";
 import { BattleState } from "./battle_state";
+import { RuleChecker } from "./rule_checker";
 
 export class TurnManager {
   private _battleState: BattleState;
+  private _ruleChecker: RuleChecker;
   constructor(battleState: BattleState) {
     this._battleState = battleState;
+    this._ruleChecker = new RuleChecker();
   }
 
   initPlayerTurn() {
@@ -35,7 +38,10 @@ export class TurnManager {
   }
 
   playPlayerCard(card: Card) {
-    // TODO
+    if (!this._ruleChecker.canPlay(card, this._battleState)) {
+      log.debug("Cannot play card " + card);
+      return;
+    }
     card.sprite.setTint(0xff0000);
   }
 }
