@@ -6,6 +6,9 @@ export class RuleChecker {
   constructor() {}
 
   canPlay(card: Card, battleState: ReadBattleState) {
-    return true;
+    // No other factors for now
+    if (card.manacost <= battleState.getPlayerState().mana) {
+      return true;
+    }
   }
 }

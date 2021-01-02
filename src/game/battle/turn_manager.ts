@@ -34,6 +34,7 @@ export class TurnManager {
         card.sprite.on("pointerdown", (pointer: Phaser.Input.Pointer) => {
           this.playPlayerCard(card);
         });
+        // TODO trigger animation event
         playerState.hand.push(card);
       }
     }
@@ -46,6 +47,9 @@ export class TurnManager {
       return;
     }
     this._cardEffectResolver.resolveCardEffects(card, this._battleState);
+    // TODO trigger animation event
+    // TODO move card to discard pile -> render discard pile
+    this._battleState.getPlayerState().decreaseMana(card.manacost);
     card.sprite.setTint(0xff0000);
   }
 }
