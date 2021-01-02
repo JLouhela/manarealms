@@ -3,26 +3,15 @@ export enum EffectType {
   DAMAGE_SINGLE = 1,
 }
 
-export interface ManaEffect {
+export interface Effect {
+  type: EffectType;
+}
+
+// EffectType.MANA
+export interface ManaEffect extends Effect {
   mana: number;
 }
 
-export class Effect {
-  private _description: string;
-  private _effects: { [id: number]: {} } = {};
-
-  get description(): string {
-    return this._description;
-  }
-  set description(d: string) {
-    this._description = d;
-  }
-
-  addEffect(type: EffectType, effect: any) {
-    this._effects[type] = effect;
-  }
-
-  get effects(): { [id: number]: {} } {
-    return this._effects;
-  }
+export function GetManaEffect(mana: number): ManaEffect {
+  return { mana, type: EffectType.MANA };
 }

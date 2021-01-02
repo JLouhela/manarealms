@@ -8,6 +8,7 @@ export namespace CardRenderer {
     rect: Phaser.Geom.Rectangle
   ): void {
     renderPlayerHand(hand, rect);
+    renderDiscardPile(deck.discardPile, rect);
   }
 
   function renderPlayerHand(cards: Cards, rect: Phaser.Geom.Rectangle) {
@@ -24,5 +25,17 @@ export namespace CardRenderer {
       cards[i].renderContainer.setDepth(Constants.UI.HandDepth);
       cards[i].renderContainer.setVisible(true);
     }
+  }
+
+  function renderDiscardPile(pile: Cards, rect: Phaser.Geom.Rectangle) {
+    if (pile.length == 0) {
+      return;
+    }
+    const cardY = rect.bottom * 0.8;
+    const startX = rect.right * 0.1;
+    for (let i = 0; i < pile.length - 1; ++i) {
+      pile[i].renderContainer.setVisible(false);
+    }
+    pile[pile.length - 1].renderContainer.setVisible(true);
   }
 }

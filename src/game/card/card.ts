@@ -10,12 +10,24 @@ export class Card {
   private _manaCostText: Phaser.GameObjects.Text;
   private _renderContainer: Phaser.GameObjects.Container;
 
+  constructor() {
+    this._effects = [];
+  }
+
   get textureKey(): string {
     return this._textureKey;
   }
 
   set textureKey(key: string) {
     this._textureKey = key;
+  }
+
+  get effects(): Effect[] {
+    return this._effects;
+  }
+
+  addEffect(e: Effect) {
+    this._effects.push(e);
   }
 
   get manaCostText(): Phaser.GameObjects.Text {

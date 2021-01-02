@@ -3,13 +3,16 @@ import { Deck } from "../card/deck";
 import { Card } from "../card/card";
 import { BattleState } from "./battle_state";
 import { RuleChecker } from "./rule_checker";
+import { CardEffectResolver } from "./card_effect_resolver";
 
 export class TurnManager {
   private _battleState: BattleState;
   private _ruleChecker: RuleChecker;
+  private _cardEffectResolver: CardEffectResolver;
   constructor(battleState: BattleState) {
     this._battleState = battleState;
     this._ruleChecker = new RuleChecker();
+    this._cardEffectResolver = new CardEffectResolver();
   }
 
   initPlayerTurn() {
@@ -42,6 +45,7 @@ export class TurnManager {
       log.debug("Cannot play card " + card);
       return;
     }
+    this._cardEffectResolver.resolveCardEffects(card, this._battleState);
     card.sprite.setTint(0xff0000);
   }
 }

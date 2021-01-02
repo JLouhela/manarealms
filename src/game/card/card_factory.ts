@@ -1,5 +1,5 @@
 import { Card } from "./card";
-import { Effect, EffectType, ManaEffect } from "./effect";
+import { EffectType, GetManaEffect } from "./effect";
 
 export class CardFactory {
   constructor() {}
@@ -17,10 +17,7 @@ export class CardFactory {
     card.manacost = 0;
     card.description = "this is a test card";
     card.textureKey = "test_card";
-
-    let manaEffect = new Effect();
-    // TODO think how to enforce dict to match manaeffect
-    manaEffect.addEffect(EffectType.MANA, { mana: 1 });
+    card.addEffect(GetManaEffect(1));
     return card;
   }
 }
