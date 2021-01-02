@@ -27,6 +27,10 @@ export class PlayerState {
     return this._playerHand;
   }
 
+  get mana(): number {
+    return this._mana;
+  }
+
   addMana(n: number) {
     this._mana += n;
   }
