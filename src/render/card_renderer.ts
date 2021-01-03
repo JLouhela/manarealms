@@ -51,10 +51,14 @@ export class CardRenderer {
       return;
     }
     const cardY = this._rect.bottom * 0.8;
-    const startX = this._rect.right * 0.1;
+    const cardX = this._rect.right * 0.1;
     for (let i = 0; i < pile.length - 1; ++i) {
       pile[i].renderContainer.setVisible(false);
     }
-    pile[pile.length - 1].renderContainer.setVisible(true);
+    let topCard = pile[pile.length - 1];
+    topCard.renderContainer.setVisible(true);
+    topCard.renderContainer.x = cardX;
+    topCard.renderContainer.y = cardY;
+    topCard.renderContainer.angle = 90;
   }
 }

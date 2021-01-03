@@ -48,8 +48,10 @@ export class TurnManager {
     }
     this._cardEffectResolver.resolveCardEffects(card, this._battleState);
     // TODO trigger animation event
-    // TODO move card to discard pile -> render discard pile
-    this._battleState.getPlayerState().decreaseMana(card.manacost);
-    card.sprite.setTint(0xff0000);
+    let playerState = this._battleState.getPlayerState();
+    playerState.decreaseMana(card.manacost);
+    card.sprite.off("pointerdown");
+    playerState.hand.splice(playerState.hand.indexOf(card), 1);
+    playerState.deck.discardPile.push(card);
   }
 }
