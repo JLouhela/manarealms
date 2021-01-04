@@ -11,16 +11,7 @@ export class CardRenderer {
 
   init(scene: Phaser.Scene, battleState: ReadBattleState) {
     battleState.getPlayerState().deck.pile.forEach((card) => {
-      card.renderContainer = scene.add.container(0, 0);
-      card.sprite = scene.add.image(0, 0, card.textureKey);
-      card.manaCostText = scene.add.text(
-        -55,
-        0,
-        "Cost: " + card.manacost + " mana"
-      );
-      card.renderContainer.add(card.sprite);
-      card.renderContainer.add(card.manaCostText);
-      card.renderContainer.setVisible(false);
+      card.renderCard.init(scene, card.manacost);
     });
     log.debug("CardRenderer initialized, card sprites created");
   }
@@ -39,10 +30,10 @@ export class CardRenderer {
     const cardY = this._rect.bottom * 0.8;
     const cardXAdd = Constants.Sprite.CardWidth + spacerX;
     for (let i = 0; i < cards.length; ++i) {
-      cards[i].renderContainer.x = startX + cardXAdd * i;
-      cards[i].renderContainer.y = cardY;
-      cards[i].renderContainer.setDepth(Constants.UI.HandDepth);
-      cards[i].renderContainer.setVisible(true);
+      cards[i].renderCard.sprite.x = startX + cardXAdd * i;
+      cards[i].renderCard.sprite.y = cardY;
+      cards[i].renderCard.sprite.setDepth(Constants.UI.HandDepth);
+      cards[i].renderCard.sprite.setVisible(true);
     }
   }
 
@@ -53,12 +44,12 @@ export class CardRenderer {
     const cardY = this._rect.bottom * 0.8;
     const cardX = this._rect.right * 0.1;
     for (let i = 0; i < pile.length - 1; ++i) {
-      pile[i].renderContainer.setVisible(false);
+      pile[i].renderCard.sprite.setVisible(false);
     }
     let topCard = pile[pile.length - 1];
-    topCard.renderContainer.setVisible(true);
-    topCard.renderContainer.x = cardX;
-    topCard.renderContainer.y = cardY;
-    topCard.renderContainer.angle = 90;
+    topCard.renderCard.sprite.setVisible(true);
+    topCard.renderCard.sprite.x = cardX;
+    topCard.renderCard.sprite.y = cardY;
+    topCard.renderCard.sprite.angle = 90;
   }
 }

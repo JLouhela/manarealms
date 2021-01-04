@@ -2,6 +2,7 @@ import { GameState } from "../game/game_state";
 import { BattleRenderer } from "../render/battle_renderer";
 import { UIManager } from "../ui/ui_manager";
 import { TurnManager } from "../game/battle/turn_manager";
+import { EncounterManager } from "../game/world/encounter_manager";
 import log from "loglevel";
 
 export class BattleScene extends Phaser.Scene {
@@ -9,6 +10,8 @@ export class BattleScene extends Phaser.Scene {
   private _renderer: BattleRenderer;
   private _uiManager: UIManager;
   private _turnManager: TurnManager;
+  // TODO belongs to world or something
+  private _encounterManager: EncounterManager;
 
   constructor() {
     super({
@@ -19,7 +22,13 @@ export class BattleScene extends Phaser.Scene {
   create(): void {
     log.debug("create BattleScene");
     this._gameState = this.registry.get("gamestate");
-    this._gameState.getBattleState().init(this._gameState.player.deck);
+    this._encounterManager = new EncounterManager();
+    this._gameState
+      .getBattleState()
+      .init(
+        this._gameState.player.deck,
+        this._encounterManager.getTestEncounter()
+      );
     this._uiManager = this.registry.get("uimanager");
     let { width, height } = this.sys.game.canvas;
     this._renderer = new BattleRenderer(

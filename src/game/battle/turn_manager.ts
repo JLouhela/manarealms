@@ -31,9 +31,12 @@ export class TurnManager {
         }
       } else {
         let card = playerState.deck.pile.pop();
-        card.sprite.on("pointerdown", (pointer: Phaser.Input.Pointer) => {
-          this.playPlayerCard(card);
-        });
+        card.renderCard.sprite.on(
+          "pointerdown",
+          (pointer: Phaser.Input.Pointer) => {
+            this.playPlayerCard(card);
+          }
+        );
         // TODO trigger animation event
         playerState.hand.push(card);
       }
@@ -50,7 +53,7 @@ export class TurnManager {
     // TODO trigger animation event
     let playerState = this._battleState.getPlayerState();
     playerState.decreaseMana(card.manacost);
-    card.sprite.off("pointerdown");
+    card.renderCard.sprite.off("pointerdown");
     playerState.hand.splice(playerState.hand.indexOf(card), 1);
     playerState.deck.discardPile.push(card);
   }

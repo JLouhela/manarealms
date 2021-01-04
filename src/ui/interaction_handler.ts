@@ -6,9 +6,9 @@ function enablePlayerHand(hand: Cards, enabled: boolean) {
   log.debug("Enable player interactions " + enabled);
   hand.forEach((card) => {
     if (enabled) {
-      card.sprite.setInteractive();
+      card.renderCard.sprite.setInteractive();
     } else {
-      card.sprite.disableInteractive();
+      card.renderCard.sprite.disableInteractive();
     }
   });
 }
