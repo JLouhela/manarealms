@@ -1,4 +1,5 @@
 import log = require("loglevel");
+import { RenderEnemy } from "../../render/objects/render_enemy";
 
 export class Enemy {
   private _hp: number;
@@ -6,11 +7,7 @@ export class Enemy {
   private _mana: number;
   private _maxMana: number;
   private _manaPerturn: number;
-
-  // TODO extract somewhere
-  private _hpText: Phaser.GameObjects.Text;
-  private _image: Phaser.GameObjects.Image;
-  private _renderContainer: Phaser.GameObjects.Container;
+  private _renderEnemy: RenderEnemy;
 
   constructor(maxHp?: number, maxMana?: number, manaPerTurn?: number) {
     this._maxHp = maxHp || 10;
@@ -18,10 +15,19 @@ export class Enemy {
     this._manaPerturn = manaPerTurn || 1;
     this._mana = 0;
     this._hp = this._maxHp;
+    this._renderEnemy = new RenderEnemy();
   }
 
   get hp(): number {
     return this._hp;
+  }
+
+  get maxHp(): number {
+    return this._maxHp;
+  }
+
+  get renderEnemy(): RenderEnemy {
+    return this._renderEnemy;
   }
 
   isDead() {
@@ -53,5 +59,8 @@ export class Enemy {
 
   get mana(): number {
     return this._mana;
+  }
+  get maxMana(): number {
+    return this._maxMana;
   }
 }

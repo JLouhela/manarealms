@@ -1,3 +1,5 @@
+import log = require("loglevel");
+
 export class RenderCard {
   private _image: Phaser.GameObjects.Image;
   private _manaCostText: Phaser.GameObjects.Text;
@@ -15,6 +17,9 @@ export class RenderCard {
   constructor() {}
 
   init(scene: Phaser.Scene, manaCost: number): void {
+    if (!this._textureKey) {
+      log.warn("Card without texture!");
+    }
     this._renderContainer = scene.add.container(0, 0);
     this._image = scene.add.image(0, 0, this._textureKey);
     let imageSize = this._image.getBounds();

@@ -12,6 +12,7 @@ export enum Phase {
 export interface ReadBattleState {
   getPlayerState(): PlayerState;
   getPhase(): Phase;
+  getEncounter(): Encounter;
 }
 
 export class BattleState implements ReadBattleState {
@@ -33,6 +34,7 @@ export class BattleState implements ReadBattleState {
     this._encounter = encounter;
   }
 
+  // Separate getters for typescript interface limitation reasons
   getPlayerState(): PlayerState {
     return this._playerState;
   }
@@ -47,5 +49,9 @@ export class BattleState implements ReadBattleState {
 
   set config(cfg: BattleConfig) {
     this._config = cfg;
+  }
+
+  getEncounter(): Encounter {
+    return this._encounter;
   }
 }

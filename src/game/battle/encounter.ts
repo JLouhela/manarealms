@@ -7,4 +7,8 @@ export class Encounter {
   constructor(enemies: Enemy[]) {
     this._enemies = enemies;
   }
+
+  get enemies(): Enemy[] {
+    return this._enemies;
+  }
 }
