@@ -1,5 +1,4 @@
 import log = require("loglevel");
-import { Deck } from "../card/deck";
 import { Card } from "../card/card";
 import { BattleState } from "./battle_state";
 import { RuleChecker } from "./rule_checker";
@@ -41,7 +40,12 @@ export class TurnManager {
         playerState.hand.push(card);
       }
     }
-    log.debug("Player turn initializd");
+    log.debug("Player turn initialized");
+  }
+
+  endTurn() {
+    log.debug("TODO: END TURN");
+    this._battleState.nextPhase();
   }
 
   playPlayerCard(card: Card) {

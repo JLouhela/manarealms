@@ -33,17 +33,29 @@ export class BattleScene extends Phaser.Scene {
     let { width, height } = this.sys.game.canvas;
     this._renderer = new BattleRenderer(
       this,
-      new Phaser.Geom.Rectangle(0, 0, width, height)
+      new Phaser.Geom.Rectangle(0, 0, width, height),
+      this._uiManager
     );
     this._renderer.init(this._gameState.getBattleState());
     this._turnManager = new TurnManager(this._gameState.getBattleState());
-    // TODO trigger state changes on gamestate / battlestate => tie these to events
     this._turnManager.initPlayerTurn();
+    this._connectEvents();
     this._uiManager.updateState(this._gameState);
     log.debug("BattleScene created");
   }
 
+  _connectEvents(): void {
+    this._uiManager
+      .getButton("end_turn")
+      .sprite.on("pointerdown", (pointer: Phaser.Input.Pointer) => {
+        this._turnManager.endTurn();
+      });
+  }
+
   update(time: number, delta: number) {
+    // TODO trigger state changes on gamestate / battlestate => tie these to events
+    // update 60 fps not necessary
     this._renderer.render(time, delta);
+    this._uiManager.updateState(this._gameState);
   }
 }

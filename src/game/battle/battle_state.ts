@@ -43,6 +43,14 @@ export class BattleState implements ReadBattleState {
     return this._phase;
   }
 
+  nextPhase(): void {
+    if (this._phase == Phase.PLAYER) {
+      this._phase = Phase.ENEMY;
+    } else if (this._phase == Phase.ENEMY) {
+      this._phase = Phase.PLAYER;
+    }
+  }
+
   get config(): BattleConfig {
     return this._config;
   }
