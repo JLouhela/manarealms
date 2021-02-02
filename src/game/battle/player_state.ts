@@ -38,4 +38,8 @@ export class PlayerState {
   decreaseMana(n: number) {
     this._mana -= n;
   }
+
+  resetMana() {
+    this._mana = 0;
+  }
 }

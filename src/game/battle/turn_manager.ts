@@ -36,6 +36,7 @@ export class TurnManager {
   }
 
   _initPlayerTurn() {
+    this._battleState.getPlayerState().resetMana();
     while (
       this._battleState.getPlayerState().hand.length <
       this._battleState.config.maxPlayerCards
@@ -65,6 +66,9 @@ export class TurnManager {
   }
 
   _initEnemyTurn() {
+    this._battleState.getEncounter().enemies.forEach((enemy) => {
+      enemy.gainMana();
+    });
     this._encounterAI.execute();
   }
 

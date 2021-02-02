@@ -26,5 +26,10 @@ export class EnemyRenderer {
     });
   }
 
-  render(battleState: ReadBattleState): void {}
+  render(battleState: ReadBattleState): void {
+    battleState.getEncounter().enemies.forEach((enemy) => {
+      enemy.renderEnemy.updateHp(enemy.hp, enemy.maxHp);
+      enemy.renderEnemy.updateMana(enemy.mana, enemy.maxMana);
+    });
+  }
 }

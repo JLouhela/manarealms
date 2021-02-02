@@ -33,17 +33,17 @@ export class RenderEnemy {
     this._renderContainer.add(this._manaText);
     this._renderContainer.add(this._hpText);
 
-    this._updateMana(mana, maxMana);
-    this._updateHp(hp, maxHp);
+    this.updateMana(mana, maxMana);
+    this.updateHp(hp, maxHp);
 
     this._renderContainer.setVisible(false);
   }
 
-  _updateMana(mana: number, maxMana: number): void {
+  updateMana(mana: number, maxMana: number): void {
     this._manaText.setText("Mana: " + mana + "/" + maxMana);
   }
 
-  _updateHp(hp: number, maxHp: number): void {
+  updateHp(hp: number, maxHp: number): void {
     this._hpText.setText("HP: " + hp + "/" + maxHp);
   }
 

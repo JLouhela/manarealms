@@ -67,4 +67,8 @@ export class Enemy {
   get maxMana(): number {
     return this._maxMana;
   }
+
+  gainMana() {
+    this._mana = Math.min(this._maxMana, this._mana + this._manaPerturn);
+  }
 }
