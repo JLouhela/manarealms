@@ -32,6 +32,7 @@ export class CardRenderer {
     for (let i = 0; i < cards.length; ++i) {
       cards[i].renderCard.sprite.x = startX + cardXAdd * i;
       cards[i].renderCard.sprite.y = cardY;
+      cards[i].renderCard.sprite.angle = 0;
       cards[i].renderCard.sprite.setDepth(Constants.UI.HandDepth);
       cards[i].renderCard.sprite.setVisible(true);
     }
