@@ -1,20 +1,41 @@
 import log = require("loglevel");
 import { Card } from "../card/card";
-import { BattleState } from "./battle_state";
+import { BattleState, Phase } from "./battle_state";
 import { RuleChecker } from "./rule_checker";
 import { CardEffectResolver } from "./card_effect_resolver";
+import { EncounterAI } from "./ai/encounter_ai";
 
 export class TurnManager {
   private _battleState: BattleState;
   private _ruleChecker: RuleChecker;
   private _cardEffectResolver: CardEffectResolver;
+  private _encounterAI: EncounterAI;
+
   constructor(battleState: BattleState) {
     this._battleState = battleState;
     this._ruleChecker = new RuleChecker();
     this._cardEffectResolver = new CardEffectResolver();
+    this._encounterAI = new EncounterAI(battleState, () => {
+      log.debug("AI ended turn");
+      // TODO display something and wait for a while
+      this.endTurn();
+    });
   }
 
-  initPlayerTurn() {
+  initEncounter() {
+    this._encounterAI.init(this._battleState.getEncounter());
+    this._initTurn();
+  }
+
+  _initTurn() {
+    if (this._battleState.getPhase() == Phase.ENEMY) {
+      this._initEnemyTurn();
+    } else {
+      this._initPlayerTurn();
+    }
+  }
+
+  _initPlayerTurn() {
     while (
       this._battleState.getPlayerState().hand.length <
       this._battleState.config.maxPlayerCards
@@ -43,9 +64,13 @@ export class TurnManager {
     log.debug("Player turn initialized");
   }
 
+  _initEnemyTurn() {
+    this._encounterAI.execute();
+  }
+
   endTurn() {
-    log.debug("TODO: END TURN");
     this._battleState.nextPhase();
+    this._initTurn();
   }
 
   playPlayerCard(card: Card) {

@@ -30,8 +30,12 @@ export class Enemy {
     return this._renderEnemy;
   }
 
-  isDead() {
+  isDead(): boolean {
     return this._hp <= 0;
+  }
+
+  isAlive(): boolean {
+    return !this.isDead();
   }
 
   addHp(hp: number) {

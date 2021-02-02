@@ -38,7 +38,7 @@ export class BattleScene extends Phaser.Scene {
     );
     this._renderer.init(this._gameState.getBattleState());
     this._turnManager = new TurnManager(this._gameState.getBattleState());
-    this._turnManager.initPlayerTurn();
+    this._turnManager.initEncounter();
     this._connectEvents();
     this._uiManager.updateState(this._gameState);
     log.debug("BattleScene created");

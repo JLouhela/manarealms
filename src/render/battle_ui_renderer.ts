@@ -46,7 +46,7 @@ export class BattleUIRenderer {
 
   render(battleState: ReadBattleState): void {
     this._renderInfoTexts(battleState);
-    this._renderInfoTexts(battleState);
+    this._renderButtons(battleState);
   }
 
   _renderButtons(battleState: ReadBattleState) {
