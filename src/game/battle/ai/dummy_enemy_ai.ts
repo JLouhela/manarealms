@@ -2,6 +2,7 @@ import log = require("loglevel");
 import { Enemy } from "../../enemy/enemy";
 import { BattleState } from "../battle_state";
 import { IEnemyAI } from "./enemy_ai_interface";
+import { AIAction, AIActionDamagePlayer } from "./enemy_actions";
 
 export class DummyEnemyAI implements IEnemyAI {
   private _battleState: BattleState;
@@ -10,10 +11,13 @@ export class DummyEnemyAI implements IEnemyAI {
     this._battleState = battleState;
   }
 
-  execute(enemy: Enemy): void {
+  execute(enemy: Enemy): AIAction[] {
     let battleCfg = this._battleState.config;
     log.debug("Enemy had opportunity to act via DummyAI");
     // TODO browse through cards => mana to play anything?
-    // TODO Attack player
+    let res = [];
+    // TODO dmg
+    res.push(new AIActionDamagePlayer(enemy.attackDamage));
+    return res;
   }
 }

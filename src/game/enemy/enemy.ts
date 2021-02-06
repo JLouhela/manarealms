@@ -7,12 +7,19 @@ export class Enemy {
   private _mana: number;
   private _maxMana: number;
   private _manaPerturn: number;
+  private _attackDmg: number;
   private _renderEnemy: RenderEnemy;
 
-  constructor(maxHp?: number, maxMana?: number, manaPerTurn?: number) {
+  constructor(
+    maxHp?: number,
+    maxMana?: number,
+    manaPerTurn?: number,
+    attackDmg?: number
+  ) {
     this._maxHp = maxHp || 10;
     this._maxMana = maxMana || 5;
     this._manaPerturn = manaPerTurn || 1;
+    this._attackDmg = attackDmg || 1;
     this._mana = 0;
     this._hp = this._maxHp;
     this._renderEnemy = new RenderEnemy();
@@ -70,5 +77,9 @@ export class Enemy {
 
   gainMana() {
     this._mana = Math.min(this._maxMana, this._mana + this._manaPerturn);
+  }
+
+  get attackDamage(): number {
+    return this._attackDmg;
   }
 }

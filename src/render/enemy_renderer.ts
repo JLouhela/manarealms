@@ -17,7 +17,8 @@ export class EnemyRenderer {
         enemy.mana,
         enemy.maxMana,
         enemy.hp,
-        enemy.maxHp
+        enemy.maxHp,
+        enemy.attackDamage
       );
       enemy.renderEnemy.sprite.x = firstX + xAdd;
       enemy.renderEnemy.sprite.y = y;
@@ -30,6 +31,7 @@ export class EnemyRenderer {
     battleState.getEncounter().enemies.forEach((enemy) => {
       enemy.renderEnemy.updateHp(enemy.hp, enemy.maxHp);
       enemy.renderEnemy.updateMana(enemy.mana, enemy.maxMana);
+      enemy.renderEnemy.updateAttack(enemy.attackDamage);
     });
   }
 }
