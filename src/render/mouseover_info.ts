@@ -3,11 +3,13 @@ import { Constants } from "../utils/constants";
 export class MouseOverInfo {
   // TODO consider using single container and refer to it from all mouseoverinfos
   private _container: Phaser.GameObjects.Container;
+  private _timer: Phaser.Time.Clock;
   private _w: number;
   private _h: number;
   private _xOffset: number;
   private _yOffset: number;
   private _textOffset: number;
+  private _interrupt: boolean;
 
   constructor(
     scene: Phaser.Scene,
@@ -20,15 +22,21 @@ export class MouseOverInfo {
     this._textOffset = 10;
     this._xOffset = 100;
     this._yOffset = 10;
+    this._interrupt = false;
+    this._timer = scene.time;
     this._initInfoBox(scene, text);
 
     target.on("pointerover", () => {
-      this.show();
+      this._interrupt = false;
+      this._timer.delayedCall(500, () => {
+        this.show();
+      });
     });
     target.on("pointermove", (pointer: Phaser.Input.Pointer) => {
       this._reposition(pointer.x, pointer.y);
     });
     target.on("pointerout", () => {
+      this._interrupt = true;
       this.hide();
     });
   }
@@ -56,7 +64,10 @@ export class MouseOverInfo {
   }
 
   show() {
-    this._container.setVisible(true);
+    // Could be race condition, but who cares at this point of life
+    if (!this._interrupt) {
+      this._container.setVisible(true);
+    }
   }
 
   hide() {
