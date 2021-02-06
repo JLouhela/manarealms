@@ -25,6 +25,9 @@ export class PreloadScene extends Phaser.Scene {
     Assets.testAssets.forEach((asset) => {
       this.load.image(asset.name, "assets/" + asset.uri);
     });
+    Assets.atlases.forEach((atlas) => {
+      this.load.atlas(atlas.name, atlas.uri, atlas.json);
+    });
   }
 
   startGlobals(): void {
