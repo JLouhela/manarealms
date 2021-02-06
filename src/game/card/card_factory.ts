@@ -16,6 +16,8 @@ export class CardFactory {
     card.manacost = 0;
     card.renderCard.textureKey = "test_card";
     card.addEffect(GetManaEffect(1));
+    // TODO generate desc from effect(s)
+    card.description = "Grant 1 mana";
     return card;
   }
 }

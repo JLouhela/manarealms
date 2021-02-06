@@ -7,7 +7,7 @@ export class MouseOverInfo {
   private _h: number;
   private _xOffset: number;
   private _yOffset: number;
-  private _textOffset: number:
+  private _textOffset: number;
 
   constructor(
     scene: Phaser.Scene,
@@ -37,7 +37,11 @@ export class MouseOverInfo {
     this._container = scene.add.container(0, 0);
     let rect = scene.add.rectangle(0, 0, this._w, this._h, 0x99aa99);
     rect.setStrokeStyle(2, 0x000000);
-    let infoText = scene.add.text(-this._w / 2 + this._textOffset, -this._h / 2 + this._textOffset, text);
+    let infoText = scene.add.text(
+      -this._w / 2 + this._textOffset,
+      -this._h / 2 + this._textOffset,
+      text
+    );
     infoText.setWordWrapWidth(this._w - this._textOffset * 2);
     this._container.add(rect);
     this._container.add(infoText);
@@ -52,13 +56,10 @@ export class MouseOverInfo {
   }
 
   show() {
-    console.log("SHOW no work :(");
     this._container.setVisible(true);
-    console.log(this._container);
   }
 
   hide() {
-    console.log("HIDE");
     this._container.setVisible(false);
   }
 }

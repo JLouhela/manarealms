@@ -1,5 +1,6 @@
 import log = require("loglevel");
 import { MouseOverInfo } from "../mouseover_info";
+import { Card } from "../../game/card/card";
 
 export class RenderCard {
   private _image: Phaser.GameObjects.Image;
@@ -16,7 +17,7 @@ export class RenderCard {
     this._textureKey = key;
   }
 
-  init(scene: Phaser.Scene, manaCost: number, description: string): void {
+  init(scene: Phaser.Scene, card: Card): void {
     if (!this._textureKey) {
       log.warn("Card without texture!");
     }
@@ -24,7 +25,11 @@ export class RenderCard {
     this._image = scene.add.image(0, 0, this._textureKey);
     let imageSize = this._image.getBounds();
     this._renderContainer.setSize(imageSize.width, imageSize.height);
-    this._manaCostText = scene.add.text(-55, 0, "Cost: " + manaCost + " mana");
+    this._manaCostText = scene.add.text(
+      -55,
+      0,
+      "Cost: " + card.manacost + " mana"
+    );
     this._renderContainer.add(this._image);
     this._renderContainer.add(this._manaCostText);
     this._renderContainer.setVisible(false);
@@ -32,7 +37,7 @@ export class RenderCard {
     this._mouseoverInfo = new MouseOverInfo(
       scene,
       this._renderContainer,
-      description
+      card.description
     );
   }
 
