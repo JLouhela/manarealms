@@ -18,6 +18,8 @@ export class InteractionHandler {
       if (enabled) {
         card.renderCard.sprite.setInteractive();
       } else {
+        // TODO: this also disables mouseover on enemy turn
+        // filter out inputs
         card.renderCard.sprite.disableInteractive();
       }
     });

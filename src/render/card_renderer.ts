@@ -11,7 +11,7 @@ export class CardRenderer {
 
   init(scene: Phaser.Scene, battleState: ReadBattleState) {
     battleState.getPlayerState().deck.pile.forEach((card) => {
-      card.renderCard.init(scene, card.manacost);
+      card.renderCard.init(scene, card.manacost, "paska");
     });
     log.debug("CardRenderer initialized, card sprites created");
   }
