@@ -16,7 +16,6 @@ export class DummyEnemyAI implements IEnemyAI {
     log.debug("Enemy had opportunity to act via DummyAI");
     // TODO browse through cards => mana to play anything?
     let res = [];
-    // TODO dmg
     res.push(new AIActionDamagePlayer(enemy.attackDamage));
     return res;
   }

@@ -1,3 +1,4 @@
+// Redundant?
 export enum ActionType {
   DAMAGE_PLAYER,
 }

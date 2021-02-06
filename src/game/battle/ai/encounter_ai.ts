@@ -2,6 +2,7 @@ import { Encounter } from "../encounter";
 import { DummyEnemyAI } from "./dummy_enemy_ai";
 import { BattleConfig } from "../battle_config";
 import { BattleState } from "../battle_state";
+import { AIActionDamagePlayer } from "./enemy_actions";
 
 export class EncounterAI {
   private _encounter: Encounter;
@@ -29,7 +30,12 @@ export class EncounterAI {
   execute(): void {
     this._encounter.enemies.forEach((enemy) => {
       if (enemy.isAlive()) {
-        this._dummyAI.execute(enemy);
+        let aiActions = this._dummyAI.execute(enemy);
+        aiActions.forEach((action) => {
+          if (action instanceof AIActionDamagePlayer) {
+            this._battleState.getPlayerState().decreaseHp(action.damage);
+          }
+        });
       }
     });
     this._endTurnCallBack();
