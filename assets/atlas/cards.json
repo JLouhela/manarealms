@@ -1,6 +1,6 @@
 {
   "frames": {
-    "fire_card.png": {
+    "fire_card": {
       "frame": {
         "x": 0,
         "y": 0,
@@ -24,24 +24,48 @@
         "y": 0.5
       }
     },
-    "mana_card.png": {
+    "mana_card": {
       "frame": {
         "x": 128,
         "y": 0,
-        "w": 127,
-        "h": 191
+        "w": 128,
+        "h": 192
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 127,
-        "h": 191
+        "w": 128,
+        "h": 192
       },
       "sourceSize": {
-        "w": 127,
-        "h": 191
+        "w": 128,
+        "h": 192
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "placeholder_card": {
+      "frame": {
+        "x": 256,
+        "y": 0,
+        "w": 128,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 128,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 192
       },
       "pivot": {
         "x": 0.5,
@@ -52,10 +76,10 @@
   "meta": {
     "app": "http://free-tex-packer.com",
     "version": "0.6.6",
-    "image": "texture.png",
+    "image": "cards.png",
     "format": "RGBA8888",
     "size": {
-      "w": 255,
+      "w": 384,
       "h": 192
     },
     "scale": 1

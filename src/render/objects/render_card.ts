@@ -6,23 +6,19 @@ export class RenderCard {
   private _image: Phaser.GameObjects.Image;
   private _manaCostText: Phaser.GameObjects.Text;
   private _renderContainer: Phaser.GameObjects.Container;
-  private _textureKey: string;
+  private _textureId: string = "";
   private _mouseoverInfo: MouseOverInfo;
 
-  get textureKey(): string {
-    return this._textureKey;
-  }
-
-  set textureKey(key: string) {
-    this._textureKey = key;
+  set textureId(id: string) {
+    this._textureId = id;
   }
 
   init(scene: Phaser.Scene, card: Card): void {
-    if (!this._textureKey) {
+    if (this.textureId === "") {
       log.warn("Card without texture!");
     }
     this._renderContainer = scene.add.container(0, 0);
-    this._image = scene.add.image(0, 0, this._textureKey);
+    this._image = scene.add.image(0, 0, "cards", this._textureId);
     let imageSize = this._image.getBounds();
     this._renderContainer.setSize(imageSize.width, imageSize.height);
     this._manaCostText = scene.add.text(
