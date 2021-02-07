@@ -29,9 +29,15 @@ export class RenderEnemy {
     this._sprite = scene.add.sprite(0, 0, this._textureKey);
     let imageSize = this._sprite.getBounds();
     this._renderContainer.setSize(imageSize.width, imageSize.height);
-    this._manaText = scene.add.text(-30, -135, "");
-    this._hpText = scene.add.text(-30, -115, "");
-    this._attackText = scene.add.text(-30, -95, "");
+    this._manaText = scene.add.text(-30, -135, "", {
+      color: "#000000",
+    });
+    this._hpText = scene.add.text(-30, -115, "", {
+      color: "#000000",
+    });
+    this._attackText = scene.add.text(-30, -95, "", {
+      color: "#000000",
+    });
     this._renderContainer.add(this._sprite);
     this._renderContainer.add(this._manaText);
     this._renderContainer.add(this._hpText);

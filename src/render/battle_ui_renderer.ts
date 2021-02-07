@@ -35,8 +35,8 @@ export class BattleUIRenderer {
 
   _initButtons(scene: Phaser.Scene) {
     this._endTurnButton.sprite = scene.add.image(
-      this._rect.width * 0.9,
-      this._rect.height * 0.5,
+      this._rect.width / 2,
+      this._rect.height * 0.96,
       this._endTurnButton.textureKey
     );
   }
