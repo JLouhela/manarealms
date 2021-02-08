@@ -10,6 +10,7 @@ export class MouseOverInfo {
   private _yOffset: number;
   private _textOffset: number;
   private _interrupt: boolean;
+  private _disabled: boolean;
 
   constructor(
     scene: Phaser.Scene,
@@ -65,12 +66,21 @@ export class MouseOverInfo {
 
   show() {
     // Could be race condition, but who cares at this point of life
-    if (!this._interrupt) {
+    if (!this._interrupt && !this._disabled) {
       this._container.setVisible(true);
     }
   }
 
   hide() {
     this._container.setVisible(false);
+  }
+
+  disable() {
+    this.hide();
+    this._disabled = true;
+  }
+
+  enable() {
+    this._disabled = false;
   }
 }

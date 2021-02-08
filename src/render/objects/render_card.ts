@@ -13,6 +13,8 @@ export class RenderCard {
     this._textureId = id;
   }
 
+  // TODO break cyclic dependency: card owns rendercard
+  // => separate card data into own container
   init(scene: Phaser.Scene, card: Card): void {
     if (this.textureId === "") {
       log.warn("Card without texture!");
@@ -39,5 +41,13 @@ export class RenderCard {
 
   get sprite(): Phaser.GameObjects.Container {
     return this._renderContainer;
+  }
+
+  enableInfo(val: boolean): void {
+    if (val) {
+      this._mouseoverInfo.enable();
+    } else {
+      this._mouseoverInfo.disable();
+    }
   }
 }

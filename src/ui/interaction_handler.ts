@@ -17,14 +17,18 @@ export class InteractionHandler {
     hand.forEach((card) => {
       if (enabled) {
         card.renderCard.sprite.setInteractive({ draggable: true });
+        card.renderCard.sprite.on("dragstart", () => {
+          card.renderCard.enableInfo(false);
+        });
+        card.renderCard.sprite.on("dragend", () => {
+          card.renderCard.enableInfo(true);
+        });
+
         card.renderCard.sprite.on(
           "drag",
           (pointer: Phaser.Input.Pointer, dragX: number, dragY: number) => {
             card.renderCard.sprite.x = dragX;
             card.renderCard.sprite.y = dragY;
-            // TODO:
-            // => disable "rendering" on update, just render on change
-            // => disable hint while dragging
           }
         );
       } else {
