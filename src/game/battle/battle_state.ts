@@ -3,6 +3,7 @@ import { Deck } from "../card/deck";
 import { BattleConfig } from "./battle_config";
 import { Encounter } from "./encounter";
 import { PlayerState } from "./player_state";
+import { Constants } from "../../utils/constants";
 
 export enum Phase {
   PLAYER,
@@ -20,6 +21,7 @@ export class BattleState implements ReadBattleState {
   _phase: Phase;
   _config: BattleConfig;
   _encounter: Encounter;
+  _events: Phaser.Events.EventEmitter;
 
   constructor() {
     this._playerState = new PlayerState();
@@ -28,10 +30,15 @@ export class BattleState implements ReadBattleState {
     this._encounter = null;
   }
 
-  init(playerDeck: Deck, encounter: Encounter): void {
+  init(
+    playerDeck: Deck,
+    encounter: Encounter,
+    eventEmitter: Phaser.Events.EventEmitter
+  ): void {
     log.debug("Init new battle state");
-    this._playerState.init(playerDeck);
+    this._playerState.init(playerDeck, eventEmitter);
     this._encounter = encounter;
+    this._events = eventEmitter;
   }
 
   // Separate getters for typescript interface limitation reasons
@@ -49,6 +56,7 @@ export class BattleState implements ReadBattleState {
     } else if (this._phase == Phase.ENEMY) {
       this._phase = Phase.PLAYER;
     }
+    this._events.emit(Constants.Events.BATTLE_STATE_CHANGED);
   }
 
   get config(): BattleConfig {

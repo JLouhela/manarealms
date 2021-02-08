@@ -52,12 +52,6 @@ export class TurnManager {
         }
       } else {
         let card = playerState.deck.pile.pop();
-        card.renderCard.sprite.on(
-          "pointerdown",
-          (pointer: Phaser.Input.Pointer) => {
-            this.playPlayerCard(card);
-          }
-        );
         // TODO trigger animation event
         playerState.hand.push(card);
       }

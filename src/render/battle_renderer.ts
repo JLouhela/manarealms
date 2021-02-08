@@ -35,7 +35,7 @@ export class BattleRenderer {
     this._battleUIRenderer.init(this._scene, battleState);
   }
 
-  render(time: number, delta: number): void {
+  render(): void {
     this._cardRenderer.renderPlayerCards(
       this._battleState.getPlayerState().deck,
       this._battleState.getPlayerState().hand

@@ -3,6 +3,7 @@ import { BattleRenderer } from "../render/battle_renderer";
 import { UIManager } from "../ui/ui_manager";
 import { TurnManager } from "../game/battle/turn_manager";
 import { EncounterManager } from "../game/world/encounter_manager";
+import { Constants } from "../utils/constants";
 import log from "loglevel";
 
 export class BattleScene extends Phaser.Scene {
@@ -27,7 +28,8 @@ export class BattleScene extends Phaser.Scene {
       .getBattleState()
       .init(
         this._gameState.player.deck,
-        this._encounterManager.getTestEncounter()
+        this._encounterManager.getTestEncounter(),
+        this.events
       );
     this._uiManager = this.registry.get("uimanager");
     let { width, height } = this.sys.game.canvas;
@@ -40,7 +42,8 @@ export class BattleScene extends Phaser.Scene {
     this._turnManager = new TurnManager(this._gameState.getBattleState());
     this._turnManager.initEncounter();
     this._connectEvents();
-    this._uiManager.updateState(this._gameState);
+    this._updateState();
+
     log.debug("BattleScene created");
   }
 
@@ -50,12 +53,19 @@ export class BattleScene extends Phaser.Scene {
       .sprite.on("pointerdown", (pointer: Phaser.Input.Pointer) => {
         this._turnManager.endTurn();
       });
+
+    this.events.on(Constants.Events.BATTLE_STATE_CHANGED, () => {
+      this._updateState();
+    });
+    this.events.on(Constants.Events.PLAYER_STATE_CHANGED, () => {
+      this._updateState();
+    });
   }
 
-  update(time: number, delta: number) {
-    // TODO trigger state changes on gamestate / battlestate => tie these to events
-    // update 60 fps not necessary
-    this._renderer.render(time, delta);
+  update(time: number, delta: number) {}
+
+  _updateState() {
     this._uiManager.updateState(this._gameState);
+    this._renderer.render();
   }
 }

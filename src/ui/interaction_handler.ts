@@ -16,7 +16,17 @@ export class InteractionHandler {
   _enablePlayerHand(hand: Cards, enabled: boolean) {
     hand.forEach((card) => {
       if (enabled) {
-        card.renderCard.sprite.setInteractive();
+        card.renderCard.sprite.setInteractive({ draggable: true });
+        card.renderCard.sprite.on(
+          "drag",
+          (pointer: Phaser.Input.Pointer, dragX: number, dragY: number) => {
+            card.renderCard.sprite.x = dragX;
+            card.renderCard.sprite.y = dragY;
+            // TODO:
+            // => disable "rendering" on update, just render on change
+            // => disable hint while dragging
+          }
+        );
       } else {
         // TODO: this also disables mouseover on enemy turn
         // filter out inputs
