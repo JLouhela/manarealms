@@ -7,7 +7,7 @@ export class CardEffectResolver {
   constructor() {}
 
   resolveCardEffects(card: Card, battleState: BattleState) {
-    card.effects.forEach((effect) => {
+    card.data.effects.forEach((effect) => {
       if (effect.type == EffectType.MANA) {
         this.resolveManaEffect(<ManaEffect>effect, battleState);
       } else {

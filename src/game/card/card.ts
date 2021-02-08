@@ -1,15 +1,13 @@
 import { Effect } from "./effect";
 import { RenderCard } from "../../render/objects/render_card";
+import { CardData } from "./card_data";
 
 export class Card {
-  private _manaCost: number;
-  private _effects: Effect[];
   private _renderCard: RenderCard;
-  // TODO generate from effects?
-  private _description: string;
+  private _data: CardData;
 
   constructor() {
-    this._effects = [];
+    this._data = new CardData();
     this._renderCard = new RenderCard();
   }
 
@@ -17,27 +15,7 @@ export class Card {
     return this._renderCard;
   }
 
-  get effects(): Effect[] {
-    return this._effects;
-  }
-
-  get description(): string {
-    return this._description;
-  }
-
-  addEffect(e: Effect) {
-    this._effects.push(e);
-  }
-
-  get manacost(): number {
-    return this._manaCost;
-  }
-
-  set manacost(cost: number) {
-    this._manaCost = cost;
-  }
-
-  set description(desc: string) {
-    this._description = desc;
+  get data(): CardData {
+    return this._data;
   }
 }

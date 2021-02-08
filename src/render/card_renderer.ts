@@ -11,7 +11,7 @@ export class CardRenderer {
 
   init(scene: Phaser.Scene, battleState: ReadBattleState) {
     battleState.getPlayerState().deck.pile.forEach((card) => {
-      card.renderCard.init(scene, card);
+      card.renderCard.init(scene, card.data);
     });
     log.debug("CardRenderer initialized, card sprites created");
   }

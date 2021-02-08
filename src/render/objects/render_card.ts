@@ -1,6 +1,6 @@
 import log = require("loglevel");
 import { MouseOverInfo } from "../mouseover_info";
-import { Card } from "../../game/card/card";
+import { CardData } from "../../game/card/card_data";
 
 export class RenderCard {
   private _image: Phaser.GameObjects.Image;
@@ -15,7 +15,7 @@ export class RenderCard {
 
   // TODO break cyclic dependency: card owns rendercard
   // => separate card data into own container
-  init(scene: Phaser.Scene, card: Card): void {
+  init(scene: Phaser.Scene, card: CardData): void {
     if (this.textureId === "") {
       log.warn("Card without texture!");
     }

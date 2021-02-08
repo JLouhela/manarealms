@@ -79,7 +79,7 @@ export class TurnManager {
     this._cardEffectResolver.resolveCardEffects(card, this._battleState);
     // TODO trigger animation event
     let playerState = this._battleState.getPlayerState();
-    playerState.decreaseMana(card.manacost);
+    playerState.decreaseMana(card.data.manacost);
     card.renderCard.sprite.off("pointerdown");
     playerState.hand.splice(playerState.hand.indexOf(card), 1);
     playerState.deck.discardPile.push(card);
