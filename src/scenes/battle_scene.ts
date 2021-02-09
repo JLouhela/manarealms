@@ -11,6 +11,7 @@ export class BattleScene extends Phaser.Scene {
   private _renderer: BattleRenderer;
   private _uiManager: UIManager;
   private _turnManager: TurnManager;
+
   // TODO belongs to world or something
   private _encounterManager: EncounterManager;
 
@@ -32,6 +33,10 @@ export class BattleScene extends Phaser.Scene {
         this.events
       );
     this._uiManager = this.registry.get("uimanager");
+    this._uiManager.setupBattle(
+      this,
+      this._gameState.getBattleState().getEncounter()
+    );
     let { width, height } = this.sys.game.canvas;
     this._renderer = new BattleRenderer(
       this,

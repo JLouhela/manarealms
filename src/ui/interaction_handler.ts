@@ -2,15 +2,26 @@ import log from "loglevel";
 import { Phase, ReadBattleState } from "../game/battle/battle_state";
 import { Cards } from "../game/card/deck";
 import { UIManager } from "./ui_manager";
+import { DropZones } from "./dropzones";
+import { Encounter } from "../game/battle/encounter";
 
 export class InteractionHandler {
-  constructor() {}
-  setupBattleInteractions(battleState: ReadBattleState, uiManager: UIManager) {
+  private _dropZones: DropZones;
+  constructor() {
+    this._dropZones = new DropZones();
+  }
+
+  setupBattle(scene: Phaser.Scene, encounter: Encounter) {
+    this._dropZones.init(scene, encounter);
+  }
+
+  updateBattleInteractions(battleState: ReadBattleState, uiManager: UIManager) {
     this._enablePlayerHand(
       battleState.getPlayerState().hand,
       battleState.getPhase() == Phase.PLAYER
     );
     this._enableUI(battleState.getPhase(), uiManager);
+    this._enableDropZones(battleState);
   }
 
   _enablePlayerHand(hand: Cards, enabled: boolean) {
@@ -47,5 +58,10 @@ export class InteractionHandler {
     } else {
       endTurnButton.sprite.disableInteractive();
     }
+  }
+
+  _enableDropZones(battleState: ReadBattleState) {
+    // TODO:
+    // update enemies
   }
 }
