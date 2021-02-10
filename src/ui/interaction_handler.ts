@@ -21,7 +21,10 @@ export class InteractionHandler {
       battleState.getPhase() == Phase.PLAYER
     );
     this._enableUI(battleState.getPhase(), uiManager);
-    this._enableDropZones(battleState);
+    this._enableDropZones(
+      battleState.getEncounter(),
+      battleState.getPhase() == Phase.PLAYER
+    );
   }
 
   _enablePlayerHand(hand: Cards, enabled: boolean) {
@@ -42,6 +45,10 @@ export class InteractionHandler {
             card.renderCard.sprite.y = dragY;
           }
         );
+        card.renderCard.sprite.on("drop", () => {
+          // TODO check name (which area) -> turn_manager interaction
+          console.log("DROP");
+        });
       } else {
         // TODO: this also disables mouseover on enemy turn
         // filter out inputs
@@ -60,8 +67,11 @@ export class InteractionHandler {
     }
   }
 
-  _enableDropZones(battleState: ReadBattleState) {
-    // TODO:
-    // update enemies
+  _enableDropZones(encounter: Encounter, enabled: boolean) {
+    if (enabled) {
+      this._dropZones.enable(encounter);
+    } else {
+      this._dropZones.disable(encounter);
+    }
   }
 }

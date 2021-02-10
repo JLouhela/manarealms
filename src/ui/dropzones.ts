@@ -18,11 +18,13 @@ export class DropZones {
       width / 2,
       height / 2,
       width / 2,
-      height / 4,
+      height / 3,
       0xff00ff,
       0.1
     );
     this._playArea.setDepth(50000);
+    this._playArea.setInteractive({ dropZone: true });
+    this._playArea.setName("play_area");
   }
 
   _initCommitArea(scene: Phaser.Scene) {
@@ -31,12 +33,36 @@ export class DropZones {
       width / 8,
       height / 2,
       width / 6,
-      height / 4,
+      height / 3,
       0x3300aa,
       0.1
     );
     this._commitArea.setDepth(50000);
+    this._commitArea.setInteractive({ dropZone: true });
+    this._commitArea.setName("commit_area");
   }
 
-  _initEnemies(encounter: Encounter) {}
+  _initEnemies(encounter: Encounter) {
+    encounter.enemies.forEach((enemy) => {
+      // TODO define larger rect for easier interaction
+      // .. however targeting should be handled as a seprate step instead of
+      // drag card over enemy, dragging blocks view and feels inconvenient.
+      // Fine for now (testing purposes)
+      enemy.renderEnemy.sprite.setInteractive({ dropZone: true });
+    });
+  }
+
+  enable(encounter: Encounter) {
+    this._commitArea.setInteractive({ dropZone: true });
+    this._playArea.setInteractive({ dropZone: true });
+    this._initEnemies(encounter);
+  }
+
+  disable(encounter: Encounter) {
+    this._commitArea.disableInteractive();
+    this._playArea.disableInteractive();
+    encounter.enemies.forEach((enemy) => {
+      enemy.renderEnemy.sprite.disableInteractive();
+    });
+  }
 }
