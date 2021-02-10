@@ -1,6 +1,9 @@
 import { Encounter } from "../game/battle/encounter";
 
 export class DropZones {
+  public static PLAY_AREA_ID: string = "play_area";
+  public static COMMIT_AREA_ID: string = "commit_area";
+
   private _playArea: Phaser.GameObjects.Rectangle;
   private _commitArea: Phaser.GameObjects.Rectangle;
 
@@ -24,7 +27,7 @@ export class DropZones {
     );
     this._playArea.setDepth(50000);
     this._playArea.setInteractive({ dropZone: true });
-    this._playArea.setName("play_area");
+    this._playArea.setName(DropZones.PLAY_AREA_ID);
   }
 
   _initCommitArea(scene: Phaser.Scene) {
@@ -39,7 +42,7 @@ export class DropZones {
     );
     this._commitArea.setDepth(50000);
     this._commitArea.setInteractive({ dropZone: true });
-    this._commitArea.setName("commit_area");
+    this._commitArea.setName(DropZones.COMMIT_AREA_ID);
   }
 
   _initEnemies(encounter: Encounter) {
@@ -49,6 +52,7 @@ export class DropZones {
       // drag card over enemy, dragging blocks view and feels inconvenient.
       // Fine for now (testing purposes)
       enemy.renderEnemy.sprite.setInteractive({ dropZone: true });
+      enemy.renderEnemy.sprite.setName(enemy.id);
     });
   }
 

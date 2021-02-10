@@ -2,6 +2,7 @@ import log = require("loglevel");
 import { RenderEnemy } from "../../render/objects/render_enemy";
 
 export class Enemy {
+  _id: string;
   private _hp: number;
   private _maxHp: number;
   private _mana: number;
@@ -11,11 +12,13 @@ export class Enemy {
   private _renderEnemy: RenderEnemy;
 
   constructor(
+    id: string,
     maxHp?: number,
     maxMana?: number,
     manaPerTurn?: number,
     attackDmg?: number
   ) {
+    this._id = id;
     this._maxHp = maxHp || 10;
     this._maxMana = maxMana || 5;
     this._manaPerturn = manaPerTurn || 1;
@@ -23,6 +26,10 @@ export class Enemy {
     this._mana = 0;
     this._hp = this._maxHp;
     this._renderEnemy = new RenderEnemy();
+  }
+
+  get id(): string {
+    return this._id;
   }
 
   get hp(): number {

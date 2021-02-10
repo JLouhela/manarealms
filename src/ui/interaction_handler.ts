@@ -45,10 +45,21 @@ export class InteractionHandler {
             card.renderCard.sprite.y = dragY;
           }
         );
-        card.renderCard.sprite.on("drop", () => {
-          // TODO check name (which area) -> turn_manager interaction
-          console.log("DROP");
-        });
+        card.renderCard.sprite.on(
+          "drop",
+          (
+            pointer: Phaser.Input.Pointer,
+            dropArea: Phaser.GameObjects.GameObject
+          ) => {
+            if (dropArea.name == DropZones.PLAY_AREA_ID) {
+              console.log("Card played");
+            } else if (dropArea.name == DropZones.COMMIT_AREA_ID) {
+              console.log("Card committed");
+            } else {
+              console.log("Card played on enemy id " + dropArea.name);
+            }
+          }
+        );
       } else {
         // TODO: this also disables mouseover on enemy turn
         // filter out inputs
