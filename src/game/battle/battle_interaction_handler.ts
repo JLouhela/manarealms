@@ -1,26 +1,30 @@
 import log from "loglevel";
-import { Phase, ReadBattleState } from "../game/battle/battle_state";
-import { Cards } from "../game/card/deck";
-import { UIManager } from "./ui_manager";
-import { DropZones } from "./dropzones";
-import { Encounter } from "../game/battle/encounter";
+import { Phase, ReadBattleState } from "./battle_state";
+import { Cards } from "../card/deck";
+import { UIManager } from "../../ui/ui_manager";
+import { DropZones } from "../../ui/dropzones";
+import { Encounter } from "./encounter";
 
-export class InteractionHandler {
+// TODO move ownership to battlescene
+// give ui manager in ctor
+export class BattleInteractionHandler {
   private _dropZones: DropZones;
-  constructor() {
+  private _uiManager: UIManager;
+  constructor(uiManager: UIManager) {
     this._dropZones = new DropZones();
+    this._uiManager = uiManager;
   }
 
   setupBattle(scene: Phaser.Scene, encounter: Encounter) {
     this._dropZones.init(scene, encounter);
   }
 
-  updateBattleInteractions(battleState: ReadBattleState, uiManager: UIManager) {
+  updateBattleInteractions(battleState: ReadBattleState) {
     this._enablePlayerHand(
       battleState.getPlayerState().hand,
       battleState.getPhase() == Phase.PLAYER
     );
-    this._enableUI(battleState.getPhase(), uiManager);
+    this._enableUI(battleState.getPhase(), this._uiManager);
     this._enableDropZones(
       battleState.getEncounter(),
       battleState.getPhase() == Phase.PLAYER

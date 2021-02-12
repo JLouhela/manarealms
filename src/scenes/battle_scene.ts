@@ -1,6 +1,7 @@
 import { GameState } from "../game/game_state";
 import { BattleRenderer } from "../render/battle_renderer";
 import { UIManager } from "../ui/ui_manager";
+import { BattleInteractionHandler } from "../game/battle/battle_interaction_handler";
 import { TurnManager } from "../game/battle/turn_manager";
 import { EncounterManager } from "../game/world/encounter_manager";
 import { Constants } from "../utils/constants";
@@ -11,6 +12,7 @@ export class BattleScene extends Phaser.Scene {
   private _renderer: BattleRenderer;
   private _uiManager: UIManager;
   private _turnManager: TurnManager;
+  private _interactionHandler: BattleInteractionHandler;
 
   // TODO belongs to world or something
   private _encounterManager: EncounterManager;
@@ -42,7 +44,8 @@ export class BattleScene extends Phaser.Scene {
     this._renderer.init(this._gameState.getBattleState());
     this._turnManager = new TurnManager(this._gameState.getBattleState());
     this._turnManager.initEncounter();
-    this._uiManager.setupBattle(
+    this._interactionHandler = new BattleInteractionHandler(this._uiManager);
+    this._interactionHandler.setupBattle(
       this,
       this._gameState.getBattleState().getEncounter()
     );
@@ -70,7 +73,9 @@ export class BattleScene extends Phaser.Scene {
   update(time: number, delta: number) {}
 
   _updateState() {
-    this._uiManager.updateState(this._gameState);
+    this._interactionHandler.updateBattleInteractions(
+      this._gameState.getBattleState()
+    );
     this._renderer.render();
   }
 }
