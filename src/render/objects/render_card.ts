@@ -13,8 +13,6 @@ export class RenderCard {
     this._textureId = id;
   }
 
-  // TODO break cyclic dependency: card owns rendercard
-  // => separate card data into own container
   init(scene: Phaser.Scene, card: CardData): void {
     if (this.textureId === "") {
       log.warn("Card without texture!");

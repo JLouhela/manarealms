@@ -22,6 +22,7 @@ export class CardRenderer {
   }
 
   private _renderPlayerHand(cards: Cards) {
+    console.log("RENDER PLAYER HAND: card count = " + cards.length);
     let spacerX = this._rect.width * 0.01;
     let startX =
       this._rect.width / 2 -

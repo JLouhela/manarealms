@@ -4,6 +4,7 @@ import { Cards } from "../card/deck";
 import { UIManager } from "../../ui/ui_manager";
 import { DropZones } from "../../ui/dropzones";
 import { Encounter } from "./encounter";
+import { TurnManager } from "./turn_manager";
 
 // TODO move ownership to battlescene
 // give ui manager in ctor
@@ -19,10 +20,14 @@ export class BattleInteractionHandler {
     this._dropZones.init(scene, encounter);
   }
 
-  updateBattleInteractions(battleState: ReadBattleState) {
+  updateBattleInteractions(
+    battleState: ReadBattleState,
+    turnManager: TurnManager
+  ) {
     this._enablePlayerHand(
       battleState.getPlayerState().hand,
-      battleState.getPhase() == Phase.PLAYER
+      battleState.getPhase() == Phase.PLAYER,
+      turnManager
     );
     this._enableUI(battleState.getPhase(), this._uiManager);
     this._enableDropZones(
@@ -31,9 +36,15 @@ export class BattleInteractionHandler {
     );
   }
 
-  _enablePlayerHand(hand: Cards, enabled: boolean) {
+  _enablePlayerHand(hand: Cards, enabled: boolean, turnManager: TurnManager) {
     hand.forEach((card) => {
       if (enabled) {
+        // TODO measure & think, seems inefficient
+        card.renderCard.sprite.removeAllListeners("dragstart");
+        card.renderCard.sprite.removeAllListeners("dragend");
+        card.renderCard.sprite.removeAllListeners("drag");
+        card.renderCard.sprite.removeAllListeners("drop");
+
         card.renderCard.sprite.setInteractive({ draggable: true });
         card.renderCard.sprite.on("dragstart", () => {
           card.renderCard.enableInfo(false);
@@ -56,7 +67,8 @@ export class BattleInteractionHandler {
             dropArea: Phaser.GameObjects.GameObject
           ) => {
             if (dropArea.name == DropZones.PLAY_AREA_ID) {
-              console.log("Card played");
+              console.log("drop & playe");
+              turnManager.playPlayerCard(card);
             } else if (dropArea.name == DropZones.COMMIT_AREA_ID) {
               console.log("Card committed");
             } else {

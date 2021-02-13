@@ -1,5 +1,6 @@
 import log = require("loglevel");
 import { Deck, Cards } from "../card/deck";
+import { Card } from "../card/card";
 import { Constants } from "../../utils/constants";
 
 export class PlayerState {
@@ -63,6 +64,24 @@ export class PlayerState {
 
   resetMana() {
     this._mana = 0;
+    this._events.emit(Constants.Events.PLAYER_STATE_CHANGED);
+  }
+
+  discardCardFromHand(card: Card) {
+    this.hand.splice(this.hand.indexOf(card), 1);
+    console.log("Discard card: hand size = " + this.hand.length);
+    this.deck.discardPile.push(card);
+    this._events.emit(Constants.Events.PLAYER_STATE_CHANGED);
+  }
+
+  shuffleDiscardsBack() {
+    this.deck.shuffleDiscardsBack();
+    this._events.emit(Constants.Events.PLAYER_STATE_CHANGED);
+  }
+
+  moveCardFromDeckToHand() {
+    const card = this.deck.pile.pop();
+    this.hand.push(card);
     this._events.emit(Constants.Events.PLAYER_STATE_CHANGED);
   }
 }

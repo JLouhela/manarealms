@@ -44,16 +44,15 @@ export class TurnManager {
       let playerState = this._battleState.getPlayerState();
       if (playerState.deck.pile.length == 0) {
         if (playerState.deck.discardPile.length > 0) {
-          playerState.deck.shuffleDiscardsBack();
+          playerState.shuffleDiscardsBack();
         } else {
           // There are no cards to draw
           log.debug("No more cards to draw in initPlayerTurn");
           break;
         }
       } else {
-        let card = playerState.deck.pile.pop();
+        playerState.moveCardFromDeckToHand();
         // TODO trigger animation event
-        playerState.hand.push(card);
       }
     }
     log.debug("Player turn initialized");
@@ -72,7 +71,7 @@ export class TurnManager {
   }
 
   playPlayerCard(card: Card) {
-    if (!this._ruleChecker.canPlay(card, this._battleState)) {
+    if (!this._ruleChecker.canPlay(card.data, this._battleState)) {
       log.debug("Cannot play card " + card);
       return;
     }
@@ -81,7 +80,6 @@ export class TurnManager {
     let playerState = this._battleState.getPlayerState();
     playerState.decreaseMana(card.data.manacost);
     card.renderCard.sprite.off("pointerdown");
-    playerState.hand.splice(playerState.hand.indexOf(card), 1);
-    playerState.deck.discardPile.push(card);
+    playerState.discardCardFromHand(card);
   }
 }

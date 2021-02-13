@@ -74,7 +74,8 @@ export class BattleScene extends Phaser.Scene {
 
   _updateState() {
     this._interactionHandler.updateBattleInteractions(
-      this._gameState.getBattleState()
+      this._gameState.getBattleState(),
+      this._turnManager
     );
     this._renderer.render();
   }
