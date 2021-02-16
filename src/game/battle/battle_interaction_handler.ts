@@ -67,10 +67,9 @@ export class BattleInteractionHandler {
             dropArea: Phaser.GameObjects.GameObject
           ) => {
             if (dropArea.name == DropZones.PLAY_AREA_ID) {
-              console.log("drop & playe");
               turnManager.playPlayerCard(card);
             } else if (dropArea.name == DropZones.COMMIT_AREA_ID) {
-              console.log("Card committed");
+              turnManager.commitPlayerCard(card);
             } else {
               console.log("Card played on enemy id " + dropArea.name);
             }

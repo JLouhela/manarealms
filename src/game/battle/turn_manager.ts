@@ -36,12 +36,12 @@ export class TurnManager {
   }
 
   _initPlayerTurn() {
-    this._battleState.getPlayerState().resetMana();
+    let playerState = this._battleState.getPlayerState();
+    playerState.resetMana();
     while (
       this._battleState.getPlayerState().hand.length <
       this._battleState.config.maxPlayerCards
     ) {
-      let playerState = this._battleState.getPlayerState();
       if (playerState.deck.pile.length == 0) {
         if (playerState.deck.discardPile.length > 0) {
           playerState.shuffleDiscardsBack();
@@ -55,6 +55,7 @@ export class TurnManager {
         // TODO trigger animation event
       }
     }
+
     log.debug("Player turn initialized");
   }
 
@@ -75,11 +76,21 @@ export class TurnManager {
       log.debug("Cannot play card " + card);
       return;
     }
-    this._cardEffectResolver.resolveCardEffects(card, this._battleState);
+    this._cardEffectResolver.resolveCardEffects(card.data, this._battleState);
     // TODO trigger animation event
     let playerState = this._battleState.getPlayerState();
-    playerState.decreaseMana(card.data.manacost);
+    playerState.decreasePlayMana(card.data.manacost);
     card.renderCard.sprite.off("pointerdown");
     playerState.discardCardFromHand(card);
+  }
+
+  commitPlayerCard(card: Card) {
+    if (!this._ruleChecker.canCommit(card.data, this._battleState)) {
+      log.debug("Cannot commit card " + card);
+      return;
+    }
+    this._cardEffectResolver.resolveCommitEffects(card.data, this._battleState);
+    card.renderCard.sprite.off("pointerdown");
+    this._battleState.getPlayerState().discardCardFromHand(card);
   }
 }

@@ -7,6 +7,8 @@ export class PlayerState {
   _playerDeck: Deck;
   _playerHand: Cards;
   _mana: number;
+  _committedMana: number;
+  _committedManaPerTurn: number;
   _hp: number;
   _events: Phaser.Events.EventEmitter;
 
@@ -14,6 +16,8 @@ export class PlayerState {
     this._playerDeck = null;
     this._playerHand = null;
     this._mana = 0;
+    this._committedMana = 0;
+    this._committedManaPerTurn = 0;
     this._hp = 50;
   }
 
@@ -23,6 +27,8 @@ export class PlayerState {
     this._events = eventEmitter;
     this._playerHand = [];
     this._mana = 0;
+    this._committedMana = 0;
+    this._committedManaPerTurn = 0;
     this._hp = 50;
   }
 
@@ -38,6 +44,14 @@ export class PlayerState {
     return this._mana;
   }
 
+  get committedMana(): number {
+    return this._committedMana;
+  }
+
+  get committedManaPerTurn(): number {
+    return this._committedManaPerTurn;
+  }
+
   get hp(): number {
     return this._hp;
   }
@@ -47,8 +61,20 @@ export class PlayerState {
     this._events.emit(Constants.Events.PLAYER_STATE_CHANGED);
   }
 
-  decreaseMana(n: number) {
-    this._mana -= n;
+  addCommittedMana(n: number) {
+    this._committedManaPerTurn += n;
+    // Design question: committed mana active immediately?
+    this._committedMana += n;
+    this._events.emit(Constants.Events.PLAYER_STATE_CHANGED);
+  }
+
+  decreasePlayMana(n: number) {
+    // Prioritize commit mana for playing, spend regular if not enough
+    let remainder = this._committedMana - n;
+    this._committedMana = Math.max(0, remainder);
+    if (remainder < 0) {
+      this._mana += remainder;
+    }
     this._events.emit(Constants.Events.PLAYER_STATE_CHANGED);
   }
 
@@ -64,12 +90,12 @@ export class PlayerState {
 
   resetMana() {
     this._mana = 0;
+    this._committedMana = this._committedManaPerTurn;
     this._events.emit(Constants.Events.PLAYER_STATE_CHANGED);
   }
 
   discardCardFromHand(card: Card) {
     this.hand.splice(this.hand.indexOf(card), 1);
-    console.log("Discard card: hand size = " + this.hand.length);
     this.deck.discardPile.push(card);
     this._events.emit(Constants.Events.PLAYER_STATE_CHANGED);
   }

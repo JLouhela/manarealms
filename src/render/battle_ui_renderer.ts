@@ -5,6 +5,7 @@ import { Button } from "../ui/elements/button";
 export class BattleUIRenderer {
   private _endTurnButton: Button;
   private _manaText: Phaser.GameObjects.Text;
+  private _commitManaText: Phaser.GameObjects.Text;
   private _hpText: Phaser.GameObjects.Text;
   private _turnText: Phaser.GameObjects.Text;
   private _rect: Phaser.Geom.Rectangle;
@@ -18,11 +19,17 @@ export class BattleUIRenderer {
   _initTexts(scene: Phaser.Scene): void {
     this._manaText = scene.add.text(
       this._rect.width * 0.1,
-      this._rect.height * 0.95,
+      this._rect.height * 0.93,
       "",
       { color: "#000000" }
     );
-    this._hpText = scene.add.text(this._manaText.x, this._manaText.y + 15, "", {
+    this._commitManaText = scene.add.text(
+      this._manaText.x,
+      this._manaText.y + 15,
+      "",
+      { color: "#000000" }
+    );
+    this._hpText = scene.add.text(this._manaText.x, this._manaText.y + 30, "", {
       color: "#000000",
     });
     this._turnText = scene.add.text(
@@ -63,8 +70,14 @@ export class BattleUIRenderer {
   }
 
   _renderInfoTexts(battleState: ReadBattleState) {
-    this._manaText.text = "Player mana: " + battleState.getPlayerState().mana;
-    this._hpText.text = "Player hp: " + battleState.getPlayerState().hp;
+    const playerState = battleState.getPlayerState();
+    this._manaText.text = "Player mana: " + playerState.mana;
+    this._commitManaText.text =
+      "Player committed mana: " +
+      playerState.committedMana +
+      " / " +
+      playerState.committedManaPerTurn;
+    this._hpText.text = "Player hp: " + playerState.hp;
     this._turnText.text =
       "Turn: " + (battleState.getPhase() === Phase.PLAYER ? "PLAYER" : "ENEMY");
   }
