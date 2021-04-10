@@ -25,7 +25,7 @@ export class DropZones {
       0xff00ff,
       0.1
     );
-    this._playArea.setDepth(50000);
+    this._playArea.setDepth(0);
     this._playArea.setInteractive({ dropZone: true });
     this._playArea.setName(DropZones.PLAY_AREA_ID);
   }
@@ -40,7 +40,7 @@ export class DropZones {
       0x3300aa,
       0.1
     );
-    this._commitArea.setDepth(50000);
+    this._commitArea.setDepth(0);
     this._commitArea.setInteractive({ dropZone: true });
     this._commitArea.setName(DropZones.COMMIT_AREA_ID);
   }

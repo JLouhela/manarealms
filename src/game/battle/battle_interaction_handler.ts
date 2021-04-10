@@ -47,7 +47,6 @@ export class BattleInteractionHandler {
     hand.forEach((card) => {
       if (enabled && mana >= card.data.manacost) {
         console.log("mana: " + mana + ", cost: " + card.data.manacost);
-        // TODO measure & think, seems inefficient
         card.renderCard.sprite.removeAllListeners("dragstart");
         card.renderCard.sprite.removeAllListeners("dragend");
         card.renderCard.sprite.removeAllListeners("drag");

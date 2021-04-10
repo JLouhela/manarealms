@@ -81,6 +81,7 @@ export class TurnManager {
     let playerState = this._battleState.getPlayerState();
     playerState.decreasePlayMana(card.data.manacost);
     card.renderCard.sprite.off("pointerdown");
+    card.renderCard.sprite.disableInteractive();
     playerState.discardCardFromHand(card);
   }
 
@@ -92,5 +93,6 @@ export class TurnManager {
     this._cardEffectResolver.resolveCommitEffects(card.data, this._battleState);
     card.renderCard.sprite.off("pointerdown");
     this._battleState.getPlayerState().discardCardFromHand(card);
+    card.renderCard.sprite.disableInteractive();
   }
 }
