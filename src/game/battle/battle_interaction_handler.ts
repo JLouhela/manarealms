@@ -27,6 +27,8 @@ export class BattleInteractionHandler {
     this._enablePlayerHand(
       battleState.getPlayerState().hand,
       battleState.getPhase() == Phase.PLAYER,
+      battleState.getPlayerState().mana +
+        battleState.getPlayerState().committedMana,
       turnManager
     );
     this._enableUI(battleState.getPhase(), this._uiManager);
@@ -36,9 +38,15 @@ export class BattleInteractionHandler {
     );
   }
 
-  _enablePlayerHand(hand: Cards, enabled: boolean, turnManager: TurnManager) {
+  _enablePlayerHand(
+    hand: Cards,
+    enabled: boolean,
+    mana: number,
+    turnManager: TurnManager
+  ) {
     hand.forEach((card) => {
-      if (enabled) {
+      if (enabled && mana >= card.data.manacost) {
+        console.log("mana: " + mana + ", cost: " + card.data.manacost);
         // TODO measure & think, seems inefficient
         card.renderCard.sprite.removeAllListeners("dragstart");
         card.renderCard.sprite.removeAllListeners("dragend");
